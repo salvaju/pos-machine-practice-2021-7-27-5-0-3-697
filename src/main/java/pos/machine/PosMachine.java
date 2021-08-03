@@ -52,4 +52,19 @@ public class PosMachine {
         return itemList;
 
     }
+
+    public int evaluateTotalPrice(List<Item> itemList) {
+
+        int total = 0;
+
+        for (Item item : itemList) {
+            total += item.getSubTotal();
+        }
+
+        return total;
+    }
+
+
+
+
 }
