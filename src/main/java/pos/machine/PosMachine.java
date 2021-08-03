@@ -6,8 +6,14 @@ import java.util.stream.Collectors;
 
 public class PosMachine {
     public String generateReceipt(List<String> barcodes) {
-        convertBarcodeToItems(barcodes);
-        return null;
+
+        List<Item> itemList;
+        int totalAmount;
+
+        itemList = convertBarcodeToItems(barcodes);
+        totalAmount = evaluateTotalPrice(itemList);
+
+        return createReceipt(itemList, totalAmount);
     }
 
     public List<Item> convertBarcodeToItems(List<String> barcodeList) {
@@ -39,7 +45,7 @@ public class PosMachine {
                     battery.addSubTotal();
                     break;
                 default:
-                    System.out.println("Cannot Load Data");
+                    System.out.println("Invalid Item");
             }
         }
 
@@ -76,7 +82,7 @@ public class PosMachine {
     }
 
     public String joinItemInfo(Item item) {
-        return "Name: " + item.getName() +" , Quantity: " + item.getQuantity() + ", Unit price: "+ item.getPrice() +" (yuan), Subtotal: " + item.getSubTotal() + " (yuan)\n";
+        return  "Name: " + item.getName() +", Quantity: " + item.getQuantity() + ", Unit price: "+ item.getPrice() +" (yuan), Subtotal: " + item.getSubTotal() + " (yuan)\n";
     }
 
     public String joinReceipt(String Iteminfo, String receipt) {
