@@ -45,6 +45,6 @@ public class Item {
     }
 
     public void addSubTotal() {
-        this.subTotal += this.subTotal;
+        this.subTotal += this.price;
     }
 }

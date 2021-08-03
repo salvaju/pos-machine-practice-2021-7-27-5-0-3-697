@@ -72,5 +72,9 @@ public class PosMachine {
         return "Name: " + item.getName() +" , Quantity: " + item.getQuantity() + ", Unit price: "+ item.getPrice() +" (yuan), Subtotal: " + item.getSubTotal() + " (yuan)\n";
     }
 
+    public String joinReceipt(String Iteminfo, String receipt) {
+        return receipt + Iteminfo;
+    }
+
 
 }
