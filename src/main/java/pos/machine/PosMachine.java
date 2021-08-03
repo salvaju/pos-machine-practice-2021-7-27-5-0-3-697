@@ -2,8 +2,7 @@ package pos.machine;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static pos.machine.ItemDataLoader.loadAllItemInfos;
+import java.util.stream.Collectors;
 
 public class PosMachine {
     public String generateReceipt(List<String> barcodes) {
@@ -55,17 +54,25 @@ public class PosMachine {
 
     public int evaluateTotalPrice(List<Item> itemList) {
 
-        int total = 0;
-
-        for (Item item : itemList) {
-            total += item.getSubTotal();
-        }
-
-        return total;
+        return itemList.stream()
+                .collect(Collectors.summingInt(i -> i.subTotal));
     }
 
-    public String createReceipt() {
-        return null;
+    public String createReceipt(List<Item> itemList, int total) {
+
+        String receipt = "";
+
+        for (Item item: itemList) {
+            String joinedItemInfo = joinItemInfo(item);
+            receipt = joinReceipt(joinedItemInfo, receipt);
+        }
+
+        return "***<store earning no money>Receipt***\n" +
+                receipt +
+                "----------------------\n" +
+                "Total: "+  total  + " (yuan)\n" +
+                "**********************";
+
     }
 
     public String joinItemInfo(Item item) {
